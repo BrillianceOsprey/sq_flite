@@ -2,16 +2,17 @@
 // @14.9 SQLite Database (Student Database) [Part 2]
 // @14.10 SQLite Database (Student Database) [Part 3]
 // @14.11 SQLite Database (Student Database) [Part 4]
+// @14.12 SQLite Database (Student Database) [Part 5]
 
 
 
+import 'package:a14_sqflite/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main(){
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    MaterialApp(
-      home: MyApp(),
-    )
+    MyApp()
   );
 }
 class MyApp extends StatelessWidget {
@@ -19,10 +20,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sqflite Database'),
-      ),
+    return MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
