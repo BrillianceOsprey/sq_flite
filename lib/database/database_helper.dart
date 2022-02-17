@@ -19,13 +19,27 @@ class DataBaseHelper{
     return _db;
   }
   
-  Future<int> insertDatabase(Map<String, dynamic> student)async{ // to return id
+  Future<int> insertStudent(Map<String, dynamic> student)async{ // to return id
     _db = await createDatabase(); // create database if not exist
-    return _db.insert(tableName, student); 
+    return await _db.insert(tableName, student); 
   }
 
-  Future<List<Map<String, dynamic>>> getAllDatabase()async{
+  Future<List<Map<String, dynamic>>> getAllStudents()async{
     _db = await createDatabase(); // create database if not exist
-    return _db.query(tableName, columns: ['id', 'name', 'address', 'phone', 'email']);
+    return await _db.query(tableName, columns: ['id', 'name', 'address', 'phone', 'email']);
+  }
+
+  Future<int> updateStudent(Map<String, dynamic> student, int id)async{
+    _db = await createDatabase();
+    return await _db.update(tableName, student, where: 'id=?', whereArgs: [id]);
+  }
+
+  Future<int> deleteStudent(int id)async{
+    _db = await createDatabase();
+    return await _db.delete(tableName, where: 'id=?', whereArgs: [id]);
+  }
+  Future<int> delete()async{
+    _db = await createDatabase();
+    return await _db.rawDelete('DELETE FROM $tableName');
   }
 }
