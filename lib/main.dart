@@ -3,6 +3,7 @@
 // @14.10 SQLite Database (Student Database) [Part 3]
 // @14.11 SQLite Database (Student Database) [Part 4]
 // @14.12 SQLite Database (Student Database) [Part 5]
+// @14.13 SQLite Database (Student Database) [Part 6]
 
 
 
@@ -10,7 +11,7 @@ import 'package:a14_sqflite/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // need to search
   runApp(
     MyApp()
   );

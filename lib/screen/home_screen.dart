@@ -20,7 +20,39 @@ class _HomeScreenState extends State<HomeScreen> {
           future: DatabaseHelper().getAllStudents(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data.toString());
+              return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    Map? student = snapshot.data![index];
+                    return Card(
+                      child: Column(
+                        children: [
+                          // Text(student['id'].toString()),
+                          CircleAvatar(child: Text((index + 1).toString())),
+                          ListTile(
+                            leading: Icon(Icons.person),
+                            title: Text('Name'),
+                            subtitle: Text(student['name']),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.location_city),
+                            title: Text('Address'),
+                            subtitle: Text(student['address']),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.phone),
+                            title: Text('Phone'),
+                            subtitle: Text(student['phone']),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.email),
+                            title: Text('Email'),
+                            subtitle: Text(student['email']),
+                          ),
+                        ],
+                      ),
+                    );
+                  });
             } else if (snapshot.hasError) {
               return Text(snapshot.data.toString());
             } else {
@@ -34,10 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () async {
           DatabaseHelper databaseHelper = DatabaseHelper();
           var result = await databaseHelper.insertStudent({
-            'name': 'U Min',
-            'address': 'MDY',
+            'name': 'MyoMinLatt',
+            'address': 'YGN',
             'phone': '091234567',
-            'email': 'min@gmail.com'
+            'email': 'myo@gmail.com'
           });
           print(result);
         },
