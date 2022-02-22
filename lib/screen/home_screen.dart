@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Map? student = snapshot.data?[index];
                     return Card(
                       child: Column(
-                        children: [   
+                        children: [
                           // Text(student?['id'].toString()),
                           CircleAvatar(child: Text((index + 1).toString())),
                           ListTile(
@@ -71,6 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             leading: Icon(Icons.location_city),
                             title: Text('Address'),
                             subtitle: Text(student?['address']),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  DatabaseHelper()
+                                      .deleteStudent(student?["id"]);
+                                  setState(() {
+                                    
+                                  });
+                                },
+                                icon: Icon(Icons.delete)),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone),
@@ -79,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           ListTile(
                             leading: Icon(Icons.email),
-                            title: Text('Email'),    
+                            title: Text('Email'),
                             subtitle: Text(student?['email']),
                           ),
                         ],
