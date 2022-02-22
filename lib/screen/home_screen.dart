@@ -1,4 +1,5 @@
 import 'package:a14_sqflite/database/database_helper.dart';
+import 'package:a14_sqflite/screen/update_student.dart';
 import 'package:flutter/material.dart';
 
 import 'add_student.dart';
@@ -26,12 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         return AddStudent();
                       },
                     )).then((value) {
-                      if(value == 'success'){
-                        setState(() {
-                          
-                        });
-                      }
-                    });
+                  if (value == 'success') {
+                    setState(() {});
+                  }
+                });
               },
               icon: Icon(Icons.add))
         ],
@@ -43,9 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
-                  itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data?.length,
                   itemBuilder: (context, index) {
-                    Map? student = snapshot.data![index];
+                    Map? student = snapshot.data?[index];
                     return Card(
                       child: Column(
                         children: [
@@ -54,22 +53,38 @@ class _HomeScreenState extends State<HomeScreen> {
                           ListTile(
                             leading: Icon(Icons.person),
                             title: Text('Name'),
-                            subtitle: Text(student['name']),
+                            subtitle: Text(student?['name']),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  print(student?["id"]);
+                                  print(student?["id"]);
+                                  print(student!['id']);
+                                  // Navigator.push(context,
+                                  //     MaterialPageRoute(builder: ((context) {
+                                  //   return UpdateStudent(
+                                  //       id: student?["id"],
+                                  //       name: student?["name"],
+                                  //       address: student?["address"],
+                                  //       phone: student?["phone"],
+                                  //       email: student?["email"]);
+                                  // })));
+                                },
+                                icon: Icon(Icons.edit)),
                           ),
                           ListTile(
                             leading: Icon(Icons.location_city),
                             title: Text('Address'),
-                            subtitle: Text(student['address']),
+                            subtitle: Text(student?['address']),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone),
                             title: Text('Phone'),
-                            subtitle: Text(student['phone']),
+                            subtitle: Text(student?['phone']),
                           ),
                           ListTile(
                             leading: Icon(Icons.email),
-                            title: Text('Email'),
-                            subtitle: Text(student['email']),
+                            title: Text('Email'),    
+                            subtitle: Text(student?['email']),
                           ),
                         ],
                       ),
