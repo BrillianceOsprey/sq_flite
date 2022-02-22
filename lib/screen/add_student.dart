@@ -107,8 +107,9 @@ class _AddStudentState extends State<AddStudent> {
                               phone: phone ?? '',
                               email: email ?? ''));
                               print(id);
+                      Navigator.pop(context, 'success');
                     }
-                    Navigator.pop(context, 'success');
+                    
                   },
                   icon: Icon(Icons.save),
                   label: Text("Save"))

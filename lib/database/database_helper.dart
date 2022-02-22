@@ -16,7 +16,7 @@ class DatabaseHelper {
     _db = await openDatabase(path); // initialize
 
     await _db.execute(
-        'CREATE TABLE IF NOT EXISTS $tableName(id INT PRIMARY KEY, name TEXT, address TEXT, phone TEXT, email TEXT)');
+        'CREATE TABLE IF NOT EXISTS $tableName(id INT PRIMARY KEY NOT NULL, name TEXT, address TEXT, phone TEXT, email TEXT)');
     // create table
     return _db;
   }

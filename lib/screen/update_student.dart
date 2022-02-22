@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-
 import '../database/database_helper.dart';
 import '../model/student.dart';
 
@@ -10,7 +9,6 @@ class UpdateStudent extends StatefulWidget {
   final String address;
   final String phone;
   final String email;
-
   UpdateStudent({required this.id, required this.name, required this.address, required this.phone, required this.email});
 
   @override
@@ -28,7 +26,6 @@ class _UpdateStudentState extends State<UpdateStudent> {
     address = widget.address;
     phone = widget.phone;
     email = widget.phone;
-
     super.initState();
   }
   @override
@@ -144,3 +141,4 @@ class _UpdateStudentState extends State<UpdateStudent> {
     );
   }
 }
+
