@@ -15,14 +15,26 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [IconButton(onPressed: () {
-          Navigator.push(context, 
-          MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (context) {
-            return AddStudent();
-          },));
-        }, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) {
+                        return AddStudent();
+                      },
+                    )).then((value) {
+                      if(value == 'success'){
+                        setState(() {
+                          
+                        });
+                      }
+                    });
+              },
+              icon: Icon(Icons.add))
+        ],
         centerTitle: true,
         title: Text('Student Database'),
       ),

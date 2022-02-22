@@ -1,3 +1,5 @@
+import 'package:a14_sqflite/database/database_helper.dart';
+import 'package:a14_sqflite/model/student.dart';
 import 'package:flutter/material.dart';
 
 class AddStudent extends StatefulWidget {
@@ -94,9 +96,19 @@ class _AddStudentState extends State<AddStudent> {
                 ),
               ),
               ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState != null &&
-                        _formKey.currentState!.validate()) {}
+                        _formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      int id = await DatabaseHelper().insertStudent(
+                          Student.insertStudent(
+                              name: name ?? '',
+                              address: address ?? '',
+                              phone: phone ?? '',
+                              email: email ?? ''));
+                              print(id);
+                    }
+                    Navigator.pop(context, 'success');
                   },
                   icon: Icon(Icons.save),
                   label: Text("Save"))
