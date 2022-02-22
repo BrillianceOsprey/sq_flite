@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             trailing: IconButton(
                                 onPressed: () {
                                   print(student?["id"]);
-                                  print(student?["id"]);
+                                  // print(student?["id"]);
                                   print(student!['id']);
                                   // Navigator.push(context,
                                   //     MaterialPageRoute(builder: ((context) {

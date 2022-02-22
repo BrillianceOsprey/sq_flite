@@ -28,8 +28,7 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getAllStudents() async {
     _db = await createDatabase();
-    return await _db
-        .query(tableName, columns: ['id', 'name', 'address', 'phone', 'email']);
+    return await _db.query(tableName, columns: ['id', 'name', 'address', 'phone', 'email']);
   }
 
   Future<int> updateStudent(Map<String, dynamic> student, int id) async {
