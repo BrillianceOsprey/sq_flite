@@ -1,15 +1,17 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+
+
 class DatabaseHelper {
-  late Database _db;
+  late Database _db; // late
   static const String tableName = 'student';
   DatabaseHelper() {
     createDatabase();
   }
 
   Future<Database> createDatabase() async {
-    var dataPath = await getDatabasesPath(); // foler
+    var dataPath = await getDatabasesPath(); // folder
     String path = join(dataPath, 'student.db'); // db
     _db = await openDatabase(path); // initialize
 

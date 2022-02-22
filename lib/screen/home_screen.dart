@@ -1,6 +1,8 @@
 import 'package:a14_sqflite/database/database_helper.dart';
 import 'package:flutter/material.dart';
 
+import 'add_student.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -13,6 +15,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(onPressed: () {
+          Navigator.push(context, 
+          MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) {
+            return AddStudent();
+          },));
+        }, icon: Icon(Icons.add))],
         centerTitle: true,
         title: Text('Student Database'),
       ),
