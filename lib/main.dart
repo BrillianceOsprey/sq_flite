@@ -7,6 +7,7 @@
 // @14.14 SQLite Database (Student Database) [Part 7]/ Student Form
 // @14.15 SQLite Database (Student Database) [Part 8]/ add
 // @14.16 SQLite Database (Student Database) [Part 9]/ edit
+// @14.17 SQLite Database(Student Database) [Part 10]/ delete single student
 
 
 

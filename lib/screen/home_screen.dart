@@ -31,7 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 });
               },
-              icon: Icon(Icons.add))
+              icon: Icon(Icons.add)),
+
+          IconButton(onPressed: (){
+            DatabaseHelper().delete();
+            setState(() {
+              
+            });
+          }, icon: Icon(Icons.delete_forever))
         ],
         centerTitle: true,
         title: Text('Student Database'),
@@ -54,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: Text('Name'),
                             subtitle: Text(student?['name']),
                             trailing: IconButton(
-                                onPressed: () {
-                                  Navigator.push(context,
+                                onPressed: () async{
+                                  var result = await Navigator.push(context,
                                       MaterialPageRoute(builder: ((context) {
                                     return UpdateStudent(
                                         id: student?["id"],
@@ -64,6 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         phone: student?["phone"],
                                         email: student?["email"]);
                                   })));
+                                  if(result == 'success'){
+                                    setState(() {
+                                      
+                                    });
+                                  }
                                 },
                                 icon: Icon(Icons.edit)),
                           ),
@@ -114,6 +126,9 @@ class _HomeScreenState extends State<HomeScreen> {
             'email': 'myo@gmail.com'
           });
           print(result);
+          setState(() {
+            
+          });
         },
       ),
     );
