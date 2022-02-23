@@ -8,20 +8,19 @@
 // @14.15 SQLite Database (Student Database) [Part 8]/ add
 // @14.16 SQLite Database (Student Database) [Part 9]/ edit
 // @14.17 SQLite Database(Student Database) [Part 10]/ delete single student
-
+// @14.18 SQLite Database (Student Database) [Part 11]/ delete all
 
 
 import 'package:a14_sqflite/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   WidgetsFlutterBinding.ensureInitialized(); // need to search
-  runApp(
-    MyApp()
-  );
+  runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,4 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

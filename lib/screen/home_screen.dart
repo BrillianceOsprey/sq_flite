@@ -1,7 +1,8 @@
 import 'package:a14_sqflite/database/database_helper.dart';
+import 'package:a14_sqflite/model/student.dart';
+import 'package:a14_sqflite/screen/add_student.dart';
 import 'package:a14_sqflite/screen/update_student.dart';
 import 'package:flutter/material.dart';
-import 'add_student.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,98 +18,93 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      fullscreenDialog: true,
-                      builder: (context) {
-                        return AddStudent();
-                      },
-                    )).then((value) {
-                  if (value == 'success') {
-                    setState(() {});
-                  }
-                });
+              onPressed: () async {
+                var popResult = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  return AddStudent();
+                }));
+                if (popResult == "success") {
+                  setState(() {});
+                }
               },
               icon: Icon(Icons.add)),
-
-          IconButton(onPressed: (){
-            DatabaseHelper().delete();
-            setState(() {
-              
-            });
-          }, icon: Icon(Icons.delete_forever))
+          IconButton(
+              onPressed: () {
+                DatabaseHelper().deleteAll();
+                setState(() {});
+              },
+              icon: Icon(Icons.delete))
         ],
         centerTitle: true,
-        title: Text('Student Database'),
+        title: Text('Student DB(sqflite'),
       ),
       body: FutureBuilder<List<Map>>(
           future: DatabaseHelper().getAllStudents(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
-                  itemCount: snapshot.data?.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    Map? student = snapshot.data?[index];
+                    Map? student = snapshot.data![index];
                     return Card(
                       child: Column(
                         children: [
-                          // Text(student?['id'].toString()),
-                          CircleAvatar(child: Text((index + 1).toString())),
-                          ListTile(
-                            leading: Icon(Icons.person),
-                            title: Text('Name'),
-                            subtitle: Text(student?['name']),
-                            trailing: IconButton(
-                                onPressed: () async{
-                                  var result = await Navigator.push(context,
-                                      MaterialPageRoute(builder: ((context) {
-                                    return UpdateStudent(
-                                        id: student?["id"],
-                                        name: student?["name"],
-                                        address: student?["address"],
-                                        phone: student?["phone"],
-                                        email: student?["email"]);
-                                  })));
-                                  if(result == 'success'){
-                                    setState(() {
-                                      
-                                    });
-                                  }
-                                },
-                                icon: Icon(Icons.edit)),
+                          CircleAvatar(
+                            child: Text((index + 1).toString()),
                           ),
+                          // CircleAvatar(child: Text(student["id"].toString())),
                           ListTile(
-                            leading: Icon(Icons.location_city),
-                            title: Text('Address'),
-                            subtitle: Text(student?['address']),
                             trailing: IconButton(
                                 onPressed: () {
-                                  DatabaseHelper()
-                                      .deleteStudent(student?["id"]);
-                                  setState(() {
-                                    
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return UpdateScreen(
+                                        student["id"],
+                                        student["name"],
+                                        student["address"],
+                                        student["phone"],
+                                        student["email"]);
+                                  })).then((value) {
+                                    if (value == "success") {
+                                      setState(() {});
+                                    }
                                   });
                                 },
+                                icon: Icon(Icons.edit)),
+                            leading: Icon(Icons.person),
+                            title: Text("Name"),
+                            subtitle: Text(student["name"]),
+                          ),
+                          ListTile(
+                            trailing: IconButton(
+                                onPressed: () async {
+                                  await DatabaseHelper()
+                                      .deleteStudent(student["id"]);
+                                  setState(() {});
+                                },
                                 icon: Icon(Icons.delete)),
+                            leading: Icon(Icons.location_on_outlined),
+                            title: Text("Address"),
+                            subtitle: Text(student["address"]),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone),
-                            title: Text('Phone'),
-                            subtitle: Text(student?['phone']),
+                            title: Text("phone"),
+                            subtitle: Text(student["phone"]),
                           ),
                           ListTile(
                             leading: Icon(Icons.email),
-                            title: Text('Email'),
-                            subtitle: Text(student?['email']),
+                            title: Text("email"),
+                            subtitle: Text(student["email"]),
                           ),
                         ],
                       ),
                     );
                   });
             } else if (snapshot.hasError) {
-              return Text(snapshot.data.toString());
+              return Center(
+                child: Text('Snapshot has error'),
+              );
             } else {
               return Center(
                 child: CircularProgressIndicator(),
@@ -116,20 +112,15 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           }),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
         onPressed: () async {
-          DatabaseHelper databaseHelper = DatabaseHelper();
-          var result = await databaseHelper.insertStudent({
-            'name': 'MyoMinLatt',
-            'address': 'YGN',
-            'phone': '091234567',
-            'email': 'myo@gmail.com'
-          });
-          print(result);
-          setState(() {
-            
-          });
+          await DatabaseHelper().insertStudent(Student.insertStudent(
+              name: "name",
+              address: "address",
+              phone: "phone",
+              email: "email"));
+          setState(() {});
         },
+        child: Icon(Icons.save),
       ),
     );
   }
